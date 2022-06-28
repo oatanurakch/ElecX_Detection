@@ -1505,15 +1505,19 @@ class GUISystem(Ui_MainWindow):
 
     # Control output when status is OK
     def ControlOutputOK(self):
+        # Load module used
+        currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
+        # open channel use for OK
+        channelOuptut = ControlOutputSystem.LoadChannelForOK(path = self.Base_Path_config, moduleIO = currentModuleUsed)
         try:
             # Load output setup in config file for control with setting in config
-            for i in self.ChanneloutputOK:
+            for i in channelOuptut:
                 # On device
                 ControlOutputSystem.OnDevice(address = 'http://' + self._ip + '/do_value/slot_0/ch_' + str(i), channel = i)
             # delay before send to OffDevice
             tm.sleep(self.delayOn)
             # Off Device
-            for i in self.ChanneloutputOK:
+            for i in channelOuptut:
                 ControlOutputSystem.OffDevice(address = 'http://' + self._ip + '/do_value/slot_0/ch_' + str(i), channel = i)
         except:
             self.AleartBoxERROR(description = 'Can\'t control output !')
@@ -1522,14 +1526,18 @@ class GUISystem(Ui_MainWindow):
 
     # Control Output NG
     def ControlOutputNG(self):
+        # Load module used
+        currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
+        # open channel use for OK
+        channelOuptut = ControlOutputSystem.LoadChannelForNG(path = self.Base_Path_config, moduleIO = currentModuleUsed)
         try:
             # Channel of NG List
-            for i in self.ChanneloutputNG:
+            for i in channelOuptut:
                 ControlOutputSystem.OnDevice(address = 'http://' + self._ip + '/do_value/slot_0/ch_' + str(i), channel = i)
             # delay before send to OffDevice
             tm.sleep(self.delayOn)
             # Off Device
-            for i in self.ChanneloutputNG:
+            for i in channelOuptut:
                 ControlOutputSystem.OffDevice(address = 'http://' + self._ip + '/do_value/slot_0/ch_' + str(i), channel = i)
         except:
             self.AleartBoxERROR(description = 'Can\'t control output !')

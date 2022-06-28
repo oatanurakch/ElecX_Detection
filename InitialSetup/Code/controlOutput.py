@@ -28,7 +28,7 @@ class ControlOutputSystem:
             return False
     # On device
     def OnDevice(self, address, channel):
-        print('Channel : {} ON' .format(channel))
+        # print('Channel {}: ON' .format(channel))
         msg_control['Ch'] = channel
         msg_control['Val'] = 1
         msg_control['Stat'] = 1
@@ -36,12 +36,29 @@ class ControlOutputSystem:
     
     # Off device
     def OffDevice(self, address, channel):
-        print('Channel : {} OFF' .format(channel))
+        # print('Channel {}: OFF' .format(channel))
         msg_control['Ch'] = channel
         msg_control['Val'] = 0
         msg_control['Stat'] = 0
         rq.put(address, data = json.dumps(msg_control), auth = auth, timeout = 3)
 
+    # loadChannelUsedInOK
+    def LoadChannelForOK(self, path, moduleIO):
+        try:
+            with open(path, 'r') as f:
+                datas = json.load(f)
+            return datas['ControlExtend']['Product'][moduleIO]['OutputUsage']['OK']
+        except:
+            return False
+
+    # loadChannelUsedInOK
+    def LoadChannelForNG(self, path, moduleIO):
+        try:
+            with open(path, 'r') as f:
+                datas = json.load(f)
+            return datas['ControlExtend']['Product'][moduleIO]['OutputUsage']['NG']
+        except:
+            return False
 if __name__ == '__main__':
     obj = ControlOutputSystem()
     data = obj.LoadIPAddress(r'D:\Product\Thai Marujun Product\Version3\InitialSetup\config.json')
