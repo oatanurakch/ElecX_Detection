@@ -59,7 +59,7 @@ CameraUsed_Border = CameraUsedandBorderCamera()
 from InitialSetup.Code.controlOutput import ControlOutputSystem
 ControlOutputSystem = ControlOutputSystem()
 # Load input system
-from InitialSetup.Code.controlInput import ControlInputSystem
+from InitialSetup.Code.ControlInput import ControlInputSystem
 ControlInputSystem = ControlInputSystem()
 # Inititial Setting before run system
 from InitialSetup.Code.loadInitialSettingInGUI import LoadInitialConf, UpdateConfig, SetupIOControl
