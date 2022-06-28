@@ -25,7 +25,7 @@
    <img width="850" src="https://raw.githubusercontent.com/oatanurakch/DetectionSystem_AnurakCH/main/ExampleProgram/287338156_716302086317443_4667691230631953776_n.png">
 </p>
 
-### - Version 3.0 Edit Program, Capture by signal ( Rising Edge Mode ) from I/O Module
+### - Version 3.0 Edit Program, Capture by signal ( Rising Edge Mode ) from I/O Module, Compare bit address from I/O Module and bit address from config
 <p>
    <img width="850" src="https://raw.githubusercontent.com/oatanurakch/DetectionSystem_AnurakCH/main/ExampleProgram/image.png">
 </p>
