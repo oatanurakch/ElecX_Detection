@@ -1,1 +1,76 @@
-{"PartNumber": {"T9": {"Name": "T9", "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\T9", "Address": "00001"}, "TOOL": {"Name": "TOOL", "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOL", "Address": "00010"}, "TOOR": {"Name": "TOOR", "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOR", "Address": "00011"}, "TSAL": {"Name": "TSAL", "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAL", "Address": "00100"}, "TSAR": {"Name": "TSAR", "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAR", "Address": "00101"}}, "InitialConfig": {"Exposure": [70, 50], "Threshold": 0.8, "Delay": 2}, "ControlExtend": {"ProductUsed": "WISE-4012", "Product": {"WISE-4012": {"IP": "192.168.1.1", "Output": 2, "Input": 4, "InputUsage": {"Rising": 0}, "OutputUsage": {"OK": [0], "NG": [1]}}, "WISE-4018": {"IP": "192.168.1.15", "Output": 8, "Input": 4, "InputUsage": {"Rising": 0}, "OutputUsage": {"OK": [0, 2], "NG": [1, 5]}}}}}
+{
+    "PartNumber": {
+        "T9": {
+            "Name": "T9",
+            "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\T9",
+            "Address": "00001"
+        },
+        "TOOL": {
+            "Name": "TOOL",
+            "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOL",
+            "Address": "00010"
+        },
+        "TOOR": {
+            "Name": "TOOR",
+            "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOR",
+            "Address": "00011"
+        },
+        "TSAL": {
+            "Name": "TSAL",
+            "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAL",
+            "Address": "00100"
+        },
+        "TSAR": {
+            "Name": "TSAR",
+            "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAR",
+            "Address": "00101"
+        }
+    },
+    "InitialConfig": {
+        "Exposure": [
+            70,
+            50
+        ],
+        "Threshold": 0.8,
+        "Delay": 2
+    },
+    "ControlExtend": {
+        "ProductUsed": "WISE-4012",
+        "Product": {
+            "WISE-4012": {
+                "IP": "192.168.1.1",
+                "Output": 2,
+                "Input": 4,
+                "InputUsage": {
+                    "Rising": 0
+                },
+                "OutputUsage": {
+                    "OK": [
+                        0
+                    ],
+                    "NG": [
+                        1
+                    ]
+                }
+            },
+            "WISE-4018": {
+                "IP": "192.168.1.15",
+                "Output": 8,
+                "Input": 8,
+                "InputUsage": {
+                    "Rising": 0
+                },
+                "OutputUsage": {
+                    "OK": [
+                        0,
+                        2
+                    ],
+                    "NG": [
+                        1,
+                        5
+                    ]
+                }
+            }
+        }
+    }
+}

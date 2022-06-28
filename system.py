@@ -1540,8 +1540,8 @@ class GUISystem(Ui_MainWindow):
 
 ########## Input system ##########
 
-    # Setup input channel
-    def InputSignal(self):
+    # Setup input channel for auto capture with signal rising edge
+    def InputRisingEdgeCaptureAuto(self):
         try:
             # Load name of product used
             currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
@@ -1553,6 +1553,20 @@ class GUISystem(Ui_MainWindow):
             if status:
                 # if StatusFromIO it's True, it's mean recieve status Rising Edge from Input I/O 
                 self.StatusFromIO = True
+        except:
+            pass
+
+    # laod input signal for view bit address from machine
+    def LoadInputChannelInProduct(self):
+        try:
+            # Load name of product used
+            currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
+            # Load channel in config file
+            Channel = ControlInputSystem.LoadInputChannel(path = self.Base_Path_config, moduleIO = currentModuleUsed)
+            # Channel of input that can use it
+            channel_able = Channel['ch'] - len(Channel['ch_rising'])
+            # Value return from module read value from input channel
+            BitAddressReturn = ControlInputSystem.LoadValueInputBitAddress(ip = self._ip, channel = channel_able)
         except:
             pass
 
@@ -1620,15 +1634,19 @@ class ThreadCamera1(th):
         object.LoadStream_Camera1()
 
 # Thread for load input signal from I/O module
-class ThreadInput(th):
+class ThreadInputChannelIn_IO_Module(th):
     def __init__(self):
         th.__init__(self)
     def run(self):
         while True:
+            # it's argument for stop thread for capture auto
             if object.StopThreadInput:
                 break
             else:
-                object.InputSignal()
+                # Input rising edge mode for capture image with signal
+                object.InputRisingEdgeCaptureAuto()
+                # read value from all input cahnnel excepted rising edge channel
+                object.LoadInputChannelInProduct()
 
 if __name__ == '__main__':
     # found camera not equal 2
@@ -1640,7 +1658,7 @@ if __name__ == '__main__':
         th0.start()
         th1 = ThreadCamera1()
         th1.start()
-        th2 = ThreadInput()
+        th2 = ThreadInputChannelIn_IO_Module()
         th2.start()
         try:
             MainWindow.show()
