@@ -1,0 +1,1 @@
+pyuic5 -x model_add_delete.ui -o gui_modelmanage.py

@@ -1,0 +1,1 @@
+pyuic5 -x delay.ui -o gui_delay.py

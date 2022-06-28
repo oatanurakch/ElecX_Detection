@@ -1,0 +1,21 @@
+{
+    "ModelData": {
+        "model_topcam": "TOOR_Top.pt",
+        "model_bottomcam": "TOOR_Bottom.pt"
+    },
+    "Camera": {
+        "camera": 2,
+        "border_top": [
+            80,
+            950,
+            2495,
+            1700
+        ],
+        "border_bottom": [
+            200,
+            700,
+            1400,
+            1400
+        ]
+    }
+}

@@ -1,0 +1,1 @@
+pyuic5 -x setexposure.ui -o gui_exposure.py

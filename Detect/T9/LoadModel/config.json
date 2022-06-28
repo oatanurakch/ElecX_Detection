@@ -1,0 +1,16 @@
+{
+    "ModelData": {
+        "model_topcam": "T9.pt",
+        "model_bottomcam": ""
+    },
+    "Camera": {
+        "camera": 1,
+        "border_top": [
+            80,
+            950,
+            2495,
+            1700
+        ],
+        "border_bottom": []
+    }
+}

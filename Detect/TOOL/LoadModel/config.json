@@ -1,0 +1,21 @@
+{
+    "ModelData": {
+        "model_topcam": "TOOL_Top.pt",
+        "model_bottomcam": "TOOL_Bottom.pt"
+    },
+    "Camera": {
+        "camera": 2,
+        "border_top": [
+            80,
+            950,
+            2495,
+            1700
+        ],
+        "border_bottom": [
+            1200,
+            650,
+            2400,
+            1400
+        ]
+    }
+}

@@ -1,0 +1,1 @@
+pyuic5 -x selectedIOModule.ui -o gui_selectedIOModule.py

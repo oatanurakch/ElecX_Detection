@@ -1,0 +1,1 @@
+pyuic5 -x setupOutputChannel.ui -o gui_setupOutputChannel.py
