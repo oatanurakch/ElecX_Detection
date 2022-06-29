@@ -238,9 +238,56 @@ class GUISystem(Ui_MainWindow):
 
     # Capture image auto mode with signal, Recieve by I/O Module
     def CaptureImageAuto(self):
-         # initial var for save image name
+        # Compare bit address in config file with signal from Input in I/O Module
+        Bitaddress_SignalCompareConfig = self.LoadInputChannelInProduct(bitAddress_config = self.ModelBitAddress)
+        # Status from I/O Rising it's should be True
         if self.StatusFromIO:
+            # Bitaddress_SignalCompareConfig, it's match it should be True
+            if Bitaddress_SignalCompareConfig:
+                try:
+                    # initial var for save image name
+                    self.FilenameOnceCamera = []
+                    self.FilenameBothCamera = []
+                    # Base path model: self.BasePathForModel
+                    # load model name for set imagename
+                    try:
+                        self.namePart = str(self.modelName.currentText()).split('Address')[0].strip()
+                    except:
+                        print('Error')
+                    # Base path image predict
+                    self.BasePathImage = os.path.join(self.BasePathForModel, r'_imagedetection')
+                    # Capture
+                    if CameraUsed_Border.CameraUsed == 1:
+                        CaptureImg.Capture(path_img = self.BasePathImage, camera = CameraUsed_Border.CameraUsed, partName = self.namePart, sliced_img = [CameraUsed_Border.y_left_top, CameraUsed_Border.y_right_top, CameraUsed_Border.x_left_top, CameraUsed_Border.x_right_top], frame = self.frame_capture0)
+                        # print('Filename: {}' .format(CaptureImg.FileNameIMG[0]))
+                        self.FilenameOnceCamera = [CaptureImg.FileNameIMG[0]]
+                        # Load image before send to detection process
+                        self.LoadImageForDetection(imageName = self.FilenameOnceCamera)
+                    elif CameraUsed_Border.CameraUsed == 2:
+                        CaptureImg.Capture(path_img = self.BasePathImage, camera = CameraUsed_Border.CameraUsed, partName = self.namePart, sliced_img = [[CameraUsed_Border.y_left_top, CameraUsed_Border.y_right_top, CameraUsed_Border.x_left_top, CameraUsed_Border.x_right_top], [CameraUsed_Border.y_left_bottom, CameraUsed_Border.y_right_bottom, CameraUsed_Border.x_left_bottom, CameraUsed_Border.x_right_bottom]], frame = [self.frame_capture0, self.frame_capture1])
+                        # FileNameIMG[0] is image from top camera, FileNameIMG[1] is image from bottom camera
+                        self.FilenameBothCamera = [CaptureImg.FileNameIMG[0], CaptureImg.FileNameIMG[1]]
+                        # Load image before send to detection process
+                        self.LoadImageForDetection(imageName = self.FilenameBothCamera)
+                except:
+                    self.AleartBoxERROR(description = 'Can\'t capture image, Not found _imagedetection folder')
+                # Change value of StatusFromIO from 'True' back to 'False'
+                self.StatusFromIO = False
+            else:
+                self.AleartBoxERROR(description = "Bit address not match in config !")
+                # Stop call function duplicated
+                self.StatusFromIO = False
+        else:
+            pass
+
+    # Capture image in manual mode
+    def CaptureImage(self) -> None:
+        # Compare bit address in config file with signal from Input in I/O Module
+        Bitaddress_SignalCompareConfig = self.LoadInputChannelInProduct(bitAddress_config = self.ModelBitAddress)
+        # Bitaddress_SignalCompareConfig, it's match it should be True
+        if Bitaddress_SignalCompareConfig:
             try:
+                # initial var for save image name
                 self.FilenameOnceCamera = []
                 self.FilenameBothCamera = []
                 # Base path model: self.BasePathForModel
@@ -266,40 +313,9 @@ class GUISystem(Ui_MainWindow):
                     self.LoadImageForDetection(imageName = self.FilenameBothCamera)
             except:
                 self.AleartBoxERROR(description = 'Can\'t capture image, Not found _imagedetection folder')
-            # Change value of StatusFromIO from 'True' back to 'False'
-            self.StatusFromIO = False
+        # if it's not match
         else:
-            pass
-
-    # Capture image in manual mode
-    def CaptureImage(self) -> None:
-        # initial var for save image name
-        try:
-            self.FilenameOnceCamera = []
-            self.FilenameBothCamera = []
-            # Base path model: self.BasePathForModel
-            # load model name for set imagename
-            try:
-                self.namePart = str(self.modelName.currentText()).split('Address')[0].strip()
-            except:
-                print('Error')
-            # Base path image predict
-            self.BasePathImage = os.path.join(self.BasePathForModel, r'_imagedetection')
-            # Capture
-            if CameraUsed_Border.CameraUsed == 1:
-                CaptureImg.Capture(path_img = self.BasePathImage, camera = CameraUsed_Border.CameraUsed, partName = self.namePart, sliced_img = [CameraUsed_Border.y_left_top, CameraUsed_Border.y_right_top, CameraUsed_Border.x_left_top, CameraUsed_Border.x_right_top], frame = self.frame_capture0)
-                # print('Filename: {}' .format(CaptureImg.FileNameIMG[0]))
-                self.FilenameOnceCamera = [CaptureImg.FileNameIMG[0]]
-                # Load image before send to detection process
-                self.LoadImageForDetection(imageName = self.FilenameOnceCamera)
-            elif CameraUsed_Border.CameraUsed == 2:
-                CaptureImg.Capture(path_img = self.BasePathImage, camera = CameraUsed_Border.CameraUsed, partName = self.namePart, sliced_img = [[CameraUsed_Border.y_left_top, CameraUsed_Border.y_right_top, CameraUsed_Border.x_left_top, CameraUsed_Border.x_right_top], [CameraUsed_Border.y_left_bottom, CameraUsed_Border.y_right_bottom, CameraUsed_Border.x_left_bottom, CameraUsed_Border.x_right_bottom]], frame = [self.frame_capture0, self.frame_capture1])
-                # FileNameIMG[0] is image from top camera, FileNameIMG[1] is image from bottom camera
-                self.FilenameBothCamera = [CaptureImg.FileNameIMG[0], CaptureImg.FileNameIMG[1]]
-                # Load image before send to detection process
-                self.LoadImageForDetection(imageName = self.FilenameBothCamera)
-        except:
-            self.AleartBoxERROR(description = 'Can\'t capture image, Not found _imagedetection folder')
+            self.AleartBoxERROR(description = "Bit address not match in config !")
 
 ########## Capture Image ##########
 
@@ -329,7 +345,9 @@ class GUISystem(Ui_MainWindow):
     def ResetResultDefinition(self):
         # Reset result image
         self.result_cam0.clear()
+        self.result_cam0.setStyleSheet('background-color : rgb(0, 0, 0);')
         self.result_cam1.clear()
+        self.result_cam1.setStyleSheet('background-color : rgb(0, 0, 0);')
         # Reset result text
         self.SumResult0.clear()
         self.SumResult1.clear()
@@ -557,10 +575,13 @@ class GUISystem(Ui_MainWindow):
         # Reset old definition
         self.ResetResultDefinition()
         try:
+            # Model selected for detection system
             self.ModelSelected = str(self.modelName.currentText()).split('Address')[0].strip()
             with open(self.Base_Path_config) as f:
                 datas = json.load(f)
             self.BasePathForModel = datas['PartNumber'][str(self.ModelSelected)]['Path']
+            # Bit ddress of model
+            self.ModelBitAddress = datas['PartNumber'][str(self.ModelSelected)]['Address']
             # Load config camera
             self.LoadConfigCamera()
             # # Load model name that selected
@@ -1033,17 +1054,18 @@ class GUISystem(Ui_MainWindow):
         try:
             text, ok = QInputDialog.getText(MainWindow, 'Address', f'Address: {bit_address}\nInput new Address')
             if ok:
-                if len(text) == 5:
+                if len(text) == 3:
                     # Update bit address of model
                     confirm = SetupPathModel.UpdateBitAddress(modelname = self._modelSelectedInListView, bitaddress = text)
                     if confirm:
                         self.AleartBoxSuccess(description = 'Update BIT Address Success !')
                         self.SetUpModelSelected()
+                        self.OpenModelManagementWindow()
                     else:
                         self.AleartBoxERROR(description = 'Bit address is already !')
                         self.SettingBITAddress()
                 else:
-                    self.AleartBoxERROR(description = 'Address must be 5 bit !')
+                    self.AleartBoxERROR(description = 'Address must be 3 bit !')
                     self.SettingBITAddress()
         except:
             self.AleartBoxERROR(description = 'Can\'t set up bit address !')
@@ -1565,7 +1587,7 @@ class GUISystem(Ui_MainWindow):
             pass
 
     # laod input signal for view bit address from machine
-    def LoadInputChannelInProduct(self):
+    def LoadInputChannelInProduct(self, bitAddress_config):
         try:
             # Load name of product used
             currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
@@ -1575,6 +1597,11 @@ class GUISystem(Ui_MainWindow):
             channel_able = Channel['ch'] - len(Channel['ch_rising'])
             # Value return from module read value from input channel
             BitAddressReturn = ControlInputSystem.LoadValueInputBitAddress(ip = self._ip, channel = channel_able)
+            # if BitAddressReturn it's equal with bitAddress_config ( it's in config file )
+            if BitAddressReturn == bitAddress_config:
+                return True
+            else:
+                return False
         except:
             pass
 
@@ -1653,8 +1680,6 @@ class ThreadInputChannelIn_IO_Module(th):
             else:
                 # Input rising edge mode for capture image with signal
                 object.InputRisingEdgeCaptureAuto()
-                # read value from all input cahnnel excepted rising edge channel
-                object.LoadInputChannelInProduct()
 
 if __name__ == '__main__':
     # found camera not equal 2

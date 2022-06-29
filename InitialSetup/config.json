@@ -3,27 +3,27 @@
         "T9": {
             "Name": "T9",
             "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\T9",
-            "Address": "00001"
+            "Address": "000"
         },
         "TOOL": {
             "Name": "TOOL",
             "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOL",
-            "Address": "00010"
+            "Address": "001"
         },
         "TOOR": {
             "Name": "TOOR",
             "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TOOR",
-            "Address": "00011"
+            "Address": "010"
         },
         "TSAL": {
             "Name": "TSAL",
             "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAL",
-            "Address": "00100"
+            "Address": "011"
         },
         "TSAR": {
             "Name": "TSAR",
             "Path": "D:\\Product\\Thai Marujun Product\\Version3\\Detect\\TSAR",
-            "Address": "00101"
+            "Address": "100"
         }
     },
     "InitialConfig": {
