@@ -1589,6 +1589,9 @@ class GUISystem(Ui_MainWindow):
     # laod input signal for view bit address from machine
     def LoadInputChannelInProduct(self, bitAddress_config):
         try:
+            # if not check in address compare return True
+            if not self.AddressCompare.isChecked():
+                return True
             # Load name of product used
             currentModuleUsed = SetupIOControl.LoadProductUsed(path = self.Base_Path_config)
             # Load channel in config file
